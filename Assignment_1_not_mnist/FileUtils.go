@@ -12,8 +12,8 @@ import (
 	"path/filepath"
 )
 
-// downloadFile downloads a file if not present, and make sure it's the right size.
-func downloadArchive(url string, fileName string, expectedBytes int64, force bool) {
+// DownloadArchive downloads a file if not present, and make sure it's the right size.
+func DownloadArchive(url string, fileName string, expectedBytes int64, force bool) {
 
 	// Test if fileName exists or if the download must be done
 	if _, err := os.Stat(fileName); os.IsNotExist(err) || force == true {
@@ -53,8 +53,8 @@ func downloadArchive(url string, fileName string, expectedBytes int64, force boo
 	fmt.Println(fileName, " found and verified.")
 }
 
-// Extract a .tar.gz archive
-func extractArchive(fileName string, force bool) error {
+// ExtractArchive extracts a .tar.gz archive
+func ExtractArchive(fileName string, force bool) error {
 	f, err := os.Open(fileName)
 	if err != nil {
 		return err
@@ -97,14 +97,4 @@ func extractArchive(fileName string, force bool) error {
 		}
 	}
 	return nil
-}
-
-func main() {
-
-	const url = "http://commondatastorage.googleapis.com/books1000/"
-	downloadArchive(url, "notMNIST_small.tar.gz", 8458043, false)
-	err := extractArchive("notMNIST_small.tar.gz", false)
-	if err != nil {
-		log.Fatal(err)
-	}
 }
