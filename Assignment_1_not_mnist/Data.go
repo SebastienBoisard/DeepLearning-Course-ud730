@@ -46,6 +46,75 @@ func loadPNG(imageFileName string) {
 	}
 }
 
+func pickle(dataFolders []string, minNumberImages int, force bool) []string {
+
+	var datasetNames []string
+
+	for _, folder := range dataFolders {
+		pickleFilename := folder + ".pickle"
+		fmt.Println("pickleFilename:", pickleFilename)
+		append(dataset_names, pickleFilename)
+
+		// Test if pickleFilename exists
+		if _, err := os.Stat(pickleFilename); os.IsNotExist(err) && force == false {
+			// pickleFilename does not exist
+			fmt.Println(pickleFilename, "already present - Skipping pickling.")
+		} else {
+			fmt.Println("Pickling", pickleFilename)
+
+			dataset := loadLetter(folder, minNumberImages)
+			f, err := os.Create(pickleFilename)
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			// dump serialize(dataset)
+		}
+	}
+
+	return datasetNames
+}
+
+// loadLetter loads the data for a single letter label.
+func loadLetter(folder String, minNumberImages int) {
+
+	files, err := ioutil.ReadDir(folder)
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, imageFile := range files {
+	}
+
+	/*
+	   dataset = np.ndarray(shape=(len(image_files), image_size, image_size),
+	                          dtype=np.float32)
+	   image_index = 0
+	   print(folder)
+	   for image in os.listdir(folder):
+	     image_file = os.path.join(folder, image)
+	     try:
+	       image_data = (ndimage.imread(image_file).astype(float) -
+	                     pixel_depth / 2) / pixel_depth
+	       if image_data.shape != (image_size, image_size):
+	         raise Exception('Unexpected image shape: %s' % str(image_data.shape))
+	       dataset[image_index, :, :] = image_data
+	       image_index += 1
+	     except IOError as e:
+	       print('Could not read:', image_file, ':', e, '- it\'s ok, skipping.')
+
+	   num_images = image_index
+	   dataset = dataset[0:num_images, :, :]
+	   if num_images < min_num_images:
+	     raise Exception('Many fewer images than expected: %d < %d' %
+	                     (num_images, min_num_images))
+
+	   print('Full dataset tensor:', dataset.shape)
+	   print('Mean:', np.mean(dataset))
+	   print('Standard deviation:', np.std(dataset))
+	   return dataset
+	*/
+}
+
 func load(dataFolders []string, minNumberImages int, maxNumberImages int) ([][imageSize][imageSize]float32, []int32) {
 
 	dataset := make([][imageSize][imageSize]float32, maxNumberImages)
