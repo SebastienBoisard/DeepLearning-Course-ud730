@@ -1,6 +1,6 @@
 # Deep Learning Course
 
-Deep Learning Course from Udacity (ud730)
+Deep Learning Course from Udacity (ud730) in Go language
 
 Source: https://www.udacity.com/course/deep-learning--ud730
 
